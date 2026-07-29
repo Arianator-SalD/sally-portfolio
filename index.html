@@ -58,6 +58,7 @@ body {
   min-height: 100vh;
   background-color: var(--ambient-page);
   transition: background-color 700ms ease;
+  overflow-x: hidden;
 }
 
 body[data-section="hero"] {
@@ -186,6 +187,213 @@ footer.scroll-section {
     filter: none;
   }
 }
+
+@media (max-width: 767px) {
+  nav > div {
+    padding: 0.75rem 1.25rem;
+  }
+
+  nav span {
+    font-size: 1.18rem;
+  }
+
+  .ambientBackdrop::after {
+    background-size: 48px 48px;
+    opacity: 0.32;
+  }
+
+  section[data-section="hero"] {
+    min-height: calc(100svh - 3.25rem);
+    padding: 4.85rem 0 3.35rem;
+  }
+
+  section[data-section="hero"] > .max-w-6xl {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 1.35rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  section[data-section="hero"] .max-w-xl {
+    max-width: none;
+  }
+
+  section[data-section="hero"] h1 {
+    font-size: clamp(3rem, 14.8vw, 4rem);
+    line-height: 0.96;
+    margin-bottom: 1rem;
+  }
+
+  section[data-section="hero"] .text-xl {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  section[data-section="hero"] .text-base {
+    font-size: 0.92rem;
+    line-height: 1.68;
+  }
+
+  section[data-section="hero"] .flex.gap-4.mt-8 {
+    width: 100%;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin-top: 1.35rem;
+  }
+
+  section[data-section="hero"] .flex.gap-4.mt-8 a {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    min-height: 2.85rem;
+  }
+
+  section[data-section="hero"] .w-56.h-56 {
+    width: 7.55rem;
+    height: 7.55rem;
+    margin-left: auto;
+    margin-right: 0.55rem;
+    border-width: 3px;
+  }
+
+  section[data-section="hero"] .w-44.h-44 {
+    width: 5.95rem;
+    height: 5.95rem;
+  }
+
+  section[data-section="hero"] .absolute.top-24.left-16 {
+    top: 4.8rem;
+    left: -3.5rem;
+    width: 9rem;
+    height: 9rem;
+  }
+
+  section[data-section="hero"] .absolute.bottom-32.left-1\/4 {
+    bottom: 6.25rem;
+    left: 54%;
+  }
+
+  section[data-section="hero"] .absolute.top-1\/3.right-1\/4 {
+    right: -7.25rem;
+    width: 11rem;
+    height: 11rem;
+  }
+
+  section[data-section="hero"] .absolute.top-40.right-48,
+  section[data-section="hero"] .absolute.bottom-48.left-48,
+  section[data-section="hero"] .absolute.top-60.left-1\/3 {
+    opacity: 0.42;
+  }
+
+  section#about {
+    padding-top: 3.85rem;
+    padding-bottom: 3.95rem;
+  }
+
+  section#about > div {
+    flex-direction: column;
+    gap: 2rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  section#about h2,
+  section#experience h2 {
+    font-size: 2.1rem;
+    line-height: 1.08;
+  }
+
+  section#about h2 {
+    margin-bottom: 1.2rem;
+  }
+
+  section#about p {
+    font-size: 0.95rem;
+    line-height: 1.72;
+    margin-bottom: 0.9rem;
+  }
+
+  section#about .education-badges {
+    gap: 0.5rem;
+    margin-top: 1.35rem;
+  }
+
+  section#about .skills-list {
+    gap: 0.5rem;
+    margin-top: 0;
+  }
+
+  section#about .rounded-full {
+    padding: 0.5rem 0.78rem;
+    font-size: 0.78rem;
+  }
+
+  section#about .flex-1:last-child > p {
+    margin-bottom: 0.95rem;
+  }
+
+  section#experience {
+    padding-top: 3.85rem;
+    padding-bottom: 4.25rem;
+  }
+
+  section#experience > div {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  section#experience h2 {
+    margin-bottom: 2.1rem;
+    text-align: left;
+  }
+
+  section#experience .absolute.left-6.top-0.bottom-0 {
+    left: 0.55rem;
+  }
+
+  section#experience .relative.pl-16 {
+    padding-left: 1.75rem;
+    padding-bottom: 1.55rem;
+  }
+
+  section#experience .absolute.left-4.top-2 {
+    left: -0.02rem;
+    width: 0.95rem;
+    height: 0.95rem;
+    border-width: 3px;
+  }
+
+  section#experience .relative.pl-16 > div:last-child {
+    border-radius: 0.95rem;
+    padding: 1.1rem;
+  }
+
+  section#experience .flex.justify-between.items-start {
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  section#experience h3 {
+    font-size: 1rem;
+    line-height: 1.35;
+  }
+
+  section#experience span.text-sm {
+    font-size: 0.78rem;
+  }
+
+  section#experience p.text-sm {
+    font-size: 0.8rem;
+    line-height: 1.52;
+  }
+
+  section#experience .experience-copy {
+    font-size: 0.82rem;
+    line-height: 1.66;
+  }
+}
 </style>
 
 <!-- Navigation -->
@@ -220,7 +428,7 @@ footer.scroll-section {
         Hi, I'm <span class="text-mist">Sally</span>
       </h1>
       <p class="font-[DM_Sans] text-xl text-subtle leading-relaxed">
-        Tsinghua · PKU · Harvard Exchange · ICLR Author
+        Tsinghua · PKU · Harvard Exchange
       </p>
       <p class="font-[DM_Sans] text-base text-subtle/70 mt-4 leading-relaxed">
         用产品思维打磨 AI 体验，<br>在数据与直觉之间找到真实的用户价值。
@@ -246,17 +454,17 @@ footer.scroll-section {
     <div class="flex-1">
       <h2 class="font-[Playfair_Display] text-3xl font-semibold text-deep mb-8">About Me</h2>
       <p class="font-[DM_Sans] text-base text-text leading-relaxed mb-4">
-        清华大学经管学院金融硕士在读（2025–2027），本科毕业于北京大学经济学院（GPA 3.9/4.0，前 5%），曾赴哈佛大学交换。2025 年获北京市优秀毕业生荣誉。
+        清华大学经管学院金融硕士在读（2025–2027），本科毕业于北京大学经济学院，曾赴哈佛大学交换。
       </p>
       <p class="font-[DM_Sans] text-base text-subtle leading-relaxed mb-4">
-        专注 AI 产品方向，在阿里千问、美团 Keeta、字节豆包均有深度实习经历，覆盖对话产品、跨境售后智能化、大模型评测等核心场景。以第一/共同作者身份参与发表 ICLR 2025 论文。
+        专注 AI 产品方向，在阿里千问、美团 Keeta、字节豆包积累了对话产品、跨境售后智能化与大模型评测等核心场景的实践经验，并参与发表 ICLR 评测集论文。
       </p>
       <p class="font-[DM_Sans] text-base text-subtle/80 leading-relaxed">
-        英语托福 115，擅长小楷书法与街舞，相信真正好用的产品，从来都是情感与逻辑的共同结果。
+        关注 AI 能力如何转化为清晰、可信且真正可用的产品体验，并持续在模型能力、用户需求与业务价值之间寻找平衡。
       </p>
 
       <!-- Education badges -->
-      <div class="flex flex-wrap gap-3 mt-8">
+      <div class="education-badges flex flex-wrap gap-3 mt-8">
         <span class="flex items-center gap-2 px-4 py-2 rounded-full bg-cream border border-mist/20 text-deep text-sm font-[DM_Sans]">
           <i data-lucide="graduation-cap" class="w-4 h-4 text-mist"></i> 清华大学 金融硕士
         </span>
@@ -269,20 +477,37 @@ footer.scroll-section {
       </div>
     </div>
     <div class="flex-1">
-      <p class="font-[DM_Sans] text-sm text-subtle mb-4 uppercase tracking-wider">Skills & Tools</p>
-      <div class="flex flex-wrap gap-3">
-        <span class="px-4 py-2 rounded-full bg-mist/20 text-deep text-sm font-[DM_Sans]">AI 产品设计</span>
-        <span class="px-4 py-2 rounded-full bg-lotus/20 text-deep text-sm font-[DM_Sans]">Prompt Engineering</span>
-        <span class="px-4 py-2 rounded-full bg-cream text-deep text-sm font-[DM_Sans]">用户调研</span>
-        <span class="px-4 py-2 rounded-full bg-mist/15 text-deep text-sm font-[DM_Sans]">数据分析</span>
-        <span class="px-4 py-2 rounded-full bg-lotus/15 text-deep text-sm font-[DM_Sans]">评测集设计</span>
-        <span class="px-4 py-2 rounded-full bg-cream/80 text-deep text-sm font-[DM_Sans]">竞品分析</span>
-        <span class="px-4 py-2 rounded-full bg-mist/25 text-deep text-sm font-[DM_Sans]">需求文档</span>
-        <span class="px-4 py-2 rounded-full bg-lotus/25 text-deep text-sm font-[DM_Sans]">跨团队协作</span>
-        <span class="px-4 py-2 rounded-full bg-cream text-deep text-sm font-[DM_Sans]">Python · SQL</span>
-        <span class="px-4 py-2 rounded-full bg-mist/20 text-deep text-sm font-[DM_Sans]">Figma</span>
-        <span class="px-4 py-2 rounded-full bg-lotus/20 text-deep text-sm font-[DM_Sans]">Claude Code · Coze</span>
-        <span class="px-4 py-2 rounded-full bg-cream text-deep text-sm font-[DM_Sans]">A/B 实验设计</span>
+      <p class="font-[DM_Sans] text-sm text-subtle mb-5 uppercase tracking-wider">Skills Matrix</p>
+      <div class="space-y-6">
+        <div>
+          <p class="font-[DM_Sans] text-sm font-medium text-deep mb-3">产品相关技能</p>
+          <div class="skills-list flex flex-wrap gap-3">
+            <span class="px-4 py-2 rounded-full bg-mist/20 text-deep text-sm font-[DM_Sans]">产品设计</span>
+            <span class="px-4 py-2 rounded-full bg-cream text-deep text-sm font-[DM_Sans]">用户调研</span>
+            <span class="px-4 py-2 rounded-full bg-mist/15 text-deep text-sm font-[DM_Sans]">数据分析</span>
+            <span class="px-4 py-2 rounded-full bg-cream/80 text-deep text-sm font-[DM_Sans]">竞品分析</span>
+            <span class="px-4 py-2 rounded-full bg-mist/25 text-deep text-sm font-[DM_Sans]">需求文档</span>
+            <span class="px-4 py-2 rounded-full bg-lotus/25 text-deep text-sm font-[DM_Sans]">跨团队协作</span>
+            <span class="px-4 py-2 rounded-full bg-cream text-deep text-sm font-[DM_Sans]">A/B 实验设计</span>
+            <span class="px-4 py-2 rounded-full bg-mist/20 text-deep text-sm font-[DM_Sans]">Figma</span>
+          </div>
+        </div>
+        <div>
+          <p class="font-[DM_Sans] text-sm font-medium text-deep mb-3">AI 技能</p>
+          <div class="skills-list flex flex-wrap gap-3">
+            <span class="px-4 py-2 rounded-full bg-lotus/20 text-deep text-sm font-[DM_Sans]">Prompt Engineering</span>
+            <span class="px-4 py-2 rounded-full bg-lotus/15 text-deep text-sm font-[DM_Sans]">评测集设计</span>
+            <span class="px-4 py-2 rounded-full bg-cream text-deep text-sm font-[DM_Sans]">Python · SQL</span>
+            <span class="px-4 py-2 rounded-full bg-lotus/20 text-deep text-sm font-[DM_Sans]">Claude Code · Coze</span>
+          </div>
+        </div>
+        <div>
+          <p class="font-[DM_Sans] text-sm font-medium text-deep mb-3">语言能力</p>
+          <div class="skills-list flex flex-wrap gap-3">
+            <span class="px-4 py-2 rounded-full bg-mist/20 text-deep text-sm font-[DM_Sans]">英语能力</span>
+            <span class="px-4 py-2 rounded-full bg-lotus/20 text-deep text-sm font-[DM_Sans]">法语能力</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -305,10 +530,10 @@ footer.scroll-section {
             <span class="text-sm text-subtle font-[DM_Sans]">2026.06 – 至今</span>
           </div>
           <p class="text-sm text-mist font-[DM_Sans] font-medium mb-3">主 Chat 对话产品实习生 · 杭州</p>
-          <ul class="text-sm text-subtle font-[DM_Sans] leading-relaxed space-y-2">
-            <li>· <strong class="text-text">回复效率优化专项</strong>：通过 bad case 归因分析，定位结论后置、Markdown 结构混乱等问题，协同完成数据重刷与离线评测，专业类问题 bad case 降低 23%，推动线上模型版本替换</li>
-            <li>· <strong class="text-text">资源搜索 Agent 上线</strong>：设计图片/视频/文档场景的意图分层与混排回复理想态，联动评测团队设计评测标准，统一多模态挂载卡组件并推动开发上线</li>
-          </ul>
+          <div class="experience-copy text-sm text-subtle font-[DM_Sans] font-normal leading-relaxed space-y-2">
+            <p>围绕回复效率开展专项优化，通过 bad case 归因定位结论后置、Markdown 结构混乱等问题，协同完成数据重刷与离线评测，使专业类问题 bad case 降低 23%，并推动线上模型版本替换。</p>
+            <p>负责资源搜索 Agent 的产品设计，梳理图片、视频与文档场景的意图分层和混排回复理想态，联动评测团队制定标准，统一多模态挂载卡组件并推动上线。</p>
+          </div>
         </div>
       </div>
 
@@ -321,10 +546,10 @@ footer.scroll-section {
             <span class="text-sm text-subtle font-[DM_Sans]">2026.02 – 2026.05</span>
           </div>
           <p class="text-sm text-lotus font-[DM_Sans] font-medium mb-3">售后判责能力产品实习生 · 北京</p>
-          <ul class="text-sm text-subtle font-[DM_Sans] leading-relaxed space-y-2">
-            <li>· <strong class="text-text">巴西售后自动化退赔</strong>：设计本地化判责规则与 PE/工程规则优化方案，上线两周后 CPO 由 1.37% 降至 0.87%，模型准确率由 73% 提升至 89%</li>
-            <li>· <strong class="text-text">中东错餐识别迭代</strong>：联动多国业务调研小票样式，引入餐品照片字段策略，骑手责任申诉率降低 5.5%，错餐判责准确率由 74% 提升至 89%</li>
-          </ul>
+          <div class="experience-copy text-sm text-subtle font-[DM_Sans] font-normal leading-relaxed space-y-2">
+            <p>负责巴西售后自动化退赔能力，设计本地化判责规则及 PE 与工程规则优化方案；上线两周后，CPO 由 1.37% 降至 0.87%，模型准确率由 73% 提升至 89%。</p>
+            <p>推进中东错餐识别迭代，联动多国业务调研小票样式并引入餐品照片字段策略，使骑手责任申诉率降低 5.5%，错餐判责准确率由 74% 提升至 89%。</p>
+          </div>
         </div>
       </div>
 
@@ -337,9 +562,9 @@ footer.scroll-section {
             <span class="text-sm text-subtle font-[DM_Sans]">2025.10 – 2025.12</span>
           </div>
           <p class="text-sm text-subtle font-[DM_Sans] font-medium mb-3">金融项目负责人 · 北京</p>
-          <ul class="text-sm text-subtle font-[DM_Sans] leading-relaxed space-y-2">
-            <li>· 从 0 到 1 建立标注 pipeline，设计专家作业规范与 AI 辅助质检流程，完成首笔 rubrics 垂类数据订单全流程交付</li>
-          </ul>
+          <div class="experience-copy text-sm text-subtle font-[DM_Sans] font-normal leading-relaxed">
+            <p>从 0 到 1 搭建数据标注 pipeline，制定专家作业规范与 AI 辅助质检流程，并完成首笔 rubrics 垂类数据订单的全流程交付。</p>
+          </div>
         </div>
       </div>
 
@@ -352,10 +577,10 @@ footer.scroll-section {
             <span class="text-sm text-subtle font-[DM_Sans]">2025.06 – 2025.10</span>
           </div>
           <p class="text-sm text-deep/60 font-[DM_Sans] font-medium mb-3">策略产品实习生 · 北京</p>
-          <ul class="text-sm text-subtle font-[DM_Sans] leading-relaxed space-y-2">
-            <li>· <strong class="text-text">ICLR 金融评测集</strong>：将金融任务拆分为数据检索与半开放问题两类，设计 Agent+PE 质检流程，数据初标通过率由 45% 提升至 70%</li>
-            <li>· 论文发表于机器学习顶会 ICLR（arxiv.org/abs/2509.13160），获技术社区广泛传播</li>
-          </ul>
+          <div class="experience-copy text-sm text-subtle font-[DM_Sans] font-normal leading-relaxed space-y-2">
+            <p>参与 ICLR 金融评测集建设，将金融任务拆分为数据检索与半开放问题两类，设计 Agent 与 PE 协同质检流程，使数据初标通过率由 45% 提升至 70%。</p>
+            <p>相关论文发表于 ICLR（arxiv.org/abs/2509.13160），并在技术社区获得广泛传播。</p>
+          </div>
         </div>
       </div>
     </div>
@@ -366,7 +591,7 @@ footer.scroll-section {
 <section id="projects" data-section="projects" class="scroll-section py-32 bg-white">
   <div class="max-w-5xl mx-auto px-6 md:px-12">
     <h2 class="font-[Playfair_Display] text-3xl font-semibold text-deep mb-4 text-center">Projects & Research</h2>
-    <p class="text-center font-[DM_Sans] text-subtle text-sm mb-16">Selected work · 项目实践与学术研究</p>
+    <p class="text-center font-[DM_Sans] text-subtle text-sm mb-16">Selected work · 项目实践与评测集发表</p>
 
     <!-- Projects -->
     <div class="mb-20">
@@ -443,7 +668,7 @@ footer.scroll-section {
         <div class="w-9 h-9 rounded-full bg-lotus/15 flex items-center justify-center">
           <i data-lucide="book-open" class="w-4 h-4 text-lotus"></i>
         </div>
-        <h3 class="font-[DM_Sans] text-lg font-semibold text-deep">Research · 学术研究</h3>
+        <h3 class="font-[DM_Sans] text-lg font-semibold text-deep">Research · 评测集发表</h3>
         <div class="flex-1 h-[1px] bg-lotus/15"></div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
