@@ -43,6 +43,149 @@
 
 <style>
 html { scroll-behavior: smooth; }
+
+body {
+  --ambient-page: #F5F0E8;
+  --ambient-mist: rgba(168, 196, 212, 0.22);
+  --ambient-lotus: rgba(212, 168, 196, 0.12);
+  --ambient-cream: rgba(245, 240, 232, 0.92);
+  --ambient-white: rgba(255, 255, 255, 0.96);
+  --ambient-x: 16%;
+  --ambient-y: 18%;
+  --ambient-x2: 82%;
+  --ambient-y2: 54%;
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--ambient-page);
+  transition: background-color 700ms ease;
+}
+
+body[data-section="hero"] {
+  --ambient-page: #F5F0E8;
+  --ambient-mist: rgba(168, 196, 212, 0.24);
+  --ambient-lotus: rgba(212, 168, 196, 0.12);
+  --ambient-x: 16%;
+  --ambient-y: 18%;
+  --ambient-x2: 76%;
+  --ambient-y2: 48%;
+}
+
+body[data-section="about"] {
+  --ambient-page: #FBF8F3;
+  --ambient-mist: rgba(168, 196, 212, 0.16);
+  --ambient-lotus: rgba(212, 168, 196, 0.10);
+  --ambient-x: 18%;
+  --ambient-y: 32%;
+  --ambient-x2: 82%;
+  --ambient-y2: 22%;
+}
+
+body[data-section="experience"] {
+  --ambient-page: #F4F0EA;
+  --ambient-mist: rgba(168, 196, 212, 0.18);
+  --ambient-lotus: rgba(212, 168, 196, 0.18);
+  --ambient-x: 74%;
+  --ambient-y: 30%;
+  --ambient-x2: 18%;
+  --ambient-y2: 72%;
+}
+
+body[data-section="projects"] {
+  --ambient-page: #F7F3EF;
+  --ambient-mist: rgba(168, 196, 212, 0.24);
+  --ambient-lotus: rgba(212, 168, 196, 0.14);
+  --ambient-x: 24%;
+  --ambient-y: 18%;
+  --ambient-x2: 88%;
+  --ambient-y2: 66%;
+}
+
+body[data-section="contact"],
+body[data-section="footer"] {
+  --ambient-page: #F6F0F4;
+  --ambient-mist: rgba(168, 196, 212, 0.16);
+  --ambient-lotus: rgba(212, 168, 196, 0.22);
+  --ambient-x: 80%;
+  --ambient-y: 24%;
+  --ambient-x2: 18%;
+  --ambient-y2: 64%;
+}
+
+.ambientBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at var(--ambient-x) var(--ambient-y), var(--ambient-mist), transparent 34%),
+    radial-gradient(circle at var(--ambient-x2) var(--ambient-y2), var(--ambient-lotus), transparent 32%),
+    linear-gradient(135deg, var(--ambient-cream), var(--ambient-white) 46%, rgba(168, 196, 212, 0.14));
+  transition: background 900ms ease, opacity 900ms ease;
+}
+
+.ambientBackdrop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(74, 107, 122, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(74, 107, 122, 0.03) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, transparent, black 18%, black 82%, transparent);
+  opacity: 0.45;
+}
+
+nav,
+.scroll-section {
+  position: relative;
+  z-index: 1;
+}
+
+section.scroll-section,
+footer.scroll-section {
+  background: transparent !important;
+}
+
+.motion-child {
+  will-change: opacity, transform, filter;
+}
+
+.motion-ready .motion-child {
+  opacity: 0;
+  transform: translateY(28px);
+  filter: blur(8px);
+  transition:
+    opacity 760ms ease,
+    transform 760ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 760ms ease;
+  transition-delay: var(--motion-delay, 0ms);
+}
+
+.motion-ready .scroll-section.is-visible .motion-child {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .motion-ready .motion-child {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
 </style>
 
 <!-- Navigation -->
@@ -59,7 +202,8 @@ html { scroll-behavior: smooth; }
 </nav>
 
 <!-- Hero Section -->
-<section class="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-cream via-white to-mist/20 pt-16">
+<div class="ambientBackdrop" aria-hidden="true"></div>
+<section data-section="hero" class="scroll-section min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-cream via-white to-mist/20 pt-16">
   <!-- Decorative elements -->
   <div class="absolute top-24 left-16 w-48 h-48 rounded-full bg-mist/20 blur-2xl" style="animation: float 8s ease-in-out infinite;"></div>
   <div class="absolute bottom-32 left-1/4 w-32 h-32 rounded-full bg-lotus/15 blur-xl" style="animation: drift 10s ease-in-out infinite;"></div>
@@ -97,7 +241,7 @@ html { scroll-behavior: smooth; }
 </section>
 
 <!-- About Me -->
-<section id="about" class="py-32 bg-white">
+<section id="about" data-section="about" class="scroll-section py-32 bg-white">
   <div class="max-w-6xl mx-auto px-12 flex gap-20 items-start">
     <div class="flex-1">
       <h2 class="font-[Playfair_Display] text-3xl font-semibold text-deep mb-8">About Me</h2>
@@ -145,7 +289,7 @@ html { scroll-behavior: smooth; }
 </section>
 
 <!-- Experience -->
-<section id="experience" class="py-32 bg-cream/30">
+<section id="experience" data-section="experience" class="scroll-section py-32 bg-cream/30">
   <div class="max-w-4xl mx-auto px-12">
     <h2 class="font-[Playfair_Display] text-3xl font-semibold text-deep mb-16 text-center">Experience</h2>
     <div class="relative">
@@ -219,7 +363,7 @@ html { scroll-behavior: smooth; }
 </section>
 
 <!-- Projects -->
-<section id="projects" class="py-32 bg-white">
+<section id="projects" data-section="projects" class="scroll-section py-32 bg-white">
   <div class="max-w-5xl mx-auto px-6 md:px-12">
     <h2 class="font-[Playfair_Display] text-3xl font-semibold text-deep mb-4 text-center">Projects & Research</h2>
     <p class="text-center font-[DM_Sans] text-subtle text-sm mb-16">Selected work · 项目实践与学术研究</p>
@@ -351,7 +495,7 @@ html { scroll-behavior: smooth; }
 </section>
 
 <!-- Contact -->
-<section id="contact" class="py-24 bg-cream/20">
+<section id="contact" data-section="contact" class="scroll-section py-24 bg-cream/20">
   <div class="max-w-4xl mx-auto px-12 text-center">
     <h2 class="font-[Playfair_Display] text-3xl font-semibold text-deep mb-4">Let's Connect</h2>
     <p class="font-[DM_Sans] text-subtle mb-10 text-base">欢迎聊聊 AI 产品、创业想法，或者一起讨论有意思的问题</p>
@@ -389,12 +533,119 @@ html { scroll-behavior: smooth; }
 </section>
 
 <!-- Footer -->
-<footer class="py-8 bg-white border-t border-mist/15">
+<footer data-section="footer" class="scroll-section py-8 bg-white border-t border-mist/15">
   <div class="max-w-6xl mx-auto px-12 text-center">
     <p class="font-[DM_Sans] text-xs text-subtle/60">© 2025 Sally Ren · Built with curiosity and care</p>
   </div>
 </footer>
 
 </body>
-<script>if (window.lucide) lucide.createIcons();</script>
+<script>
+  if (window.lucide) lucide.createIcons();
+
+  (() => {
+    const sections = Array.from(document.querySelectorAll(".scroll-section"));
+    const revealSelectors = {
+      hero: [".max-w-xl > *", ".w-56.h-56"],
+      about: [":scope > div > .flex-1"],
+      experience: [":scope h2", ":scope .relative.pl-16"],
+      projects: [":scope h2", ":scope > div > p", ":scope .flex.items-center.gap-3.mb-8", ":scope .grid > a"],
+      contact: [":scope h2", ":scope p", ":scope a.group", ":scope .flex.items-center.gap-3"],
+      footer: [":scope > div"]
+    };
+
+    sections.forEach((section) => {
+      const key = section.dataset.section;
+      const targets = new Set();
+      (revealSelectors[key] || [":scope > div"]).forEach((selector) => {
+        section.querySelectorAll(selector).forEach((item) => targets.add(item));
+      });
+
+      Array.from(targets).forEach((item, index) => {
+        item.classList.add("motion-child");
+        item.style.setProperty("--motion-delay", `${Math.min(index, 8) * 70}ms`);
+      });
+    });
+
+    function markInitialSections() {
+      const lowerBand = window.innerHeight * 0.88;
+      const upperBand = window.innerHeight * 0.10;
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top < lowerBand && rect.bottom > upperBand) {
+          section.classList.add("is-visible");
+        }
+      });
+    }
+
+    function setCurrentSection() {
+      const focusLine = window.innerHeight * 0.42;
+      let active = sections[0];
+      let bestScore = Number.POSITIVE_INFINITY;
+
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top > window.innerHeight * 0.78 || rect.bottom < window.innerHeight * 0.16) {
+          return;
+        }
+
+        const score = Math.abs(rect.top - focusLine);
+        if (score < bestScore) {
+          active = section;
+          bestScore = score;
+        }
+      });
+
+      if (active?.dataset.section) {
+        document.body.dataset.section = active.dataset.section;
+      }
+    }
+
+    markInitialSections();
+    setCurrentSection();
+    requestAnimationFrame(() => document.body.classList.add("motion-ready"));
+
+    let scrollTicking = false;
+    const syncCurrentSection = () => {
+      if (scrollTicking) {
+        return;
+      }
+
+      scrollTicking = true;
+      requestAnimationFrame(() => {
+        setCurrentSection();
+        scrollTicking = false;
+      });
+    };
+
+    window.addEventListener("scroll", syncCurrentSection, { passive: true });
+    window.addEventListener("resize", syncCurrentSection);
+
+    if ("IntersectionObserver" in window) {
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: "0px 0px -14% 0px", threshold: 0.16 });
+
+      const ambientObserver = new IntersectionObserver((entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (visible?.target?.dataset.section) {
+          document.body.dataset.section = visible.target.dataset.section;
+        }
+      }, { rootMargin: "-24% 0px -42% 0px", threshold: [0.12, 0.28, 0.48, 0.68] });
+
+      sections.forEach((section) => {
+        revealObserver.observe(section);
+        ambientObserver.observe(section);
+      });
+    }
+  })();
+</script>
 </html>
