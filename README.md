@@ -2,7 +2,7 @@
 
 Personal portfolio website for Sally Ren, an AI Product Manager focused on AI product design, evaluation, and user-centered decision tools.
 
-Live site: [sally-portfolio-eight.vercel.app](https://sally-portfolio-eight.vercel.app)
+Live site: [sally-ren.vercel.app](https://sally-ren.vercel.app)
 
 ## Overview
 
@@ -48,7 +48,7 @@ http://127.0.0.1:5175
 
 The site is deployed on Vercel:
 
-[https://sally-portfolio-eight.vercel.app](https://sally-portfolio-eight.vercel.app)
+[https://sally-ren.vercel.app](https://sally-ren.vercel.app)
 
 The repository is connected to GitHub at:
 
