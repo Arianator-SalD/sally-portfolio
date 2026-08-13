@@ -147,6 +147,127 @@ footer.scroll-section {
   background: transparent !important;
 }
 
+.hero-gallery {
+  position: relative;
+  width: 28rem;
+  height: 22rem;
+  margin-left: 2.5rem;
+  flex: 0 0 28rem;
+}
+
+.hero-gallery__photo {
+  position: absolute;
+  overflow: hidden;
+  margin: 0;
+  border: 6px solid rgba(255, 255, 255, 0.96);
+  border-radius: 3px;
+  background: #ffffff;
+  box-shadow: 0 20px 44px rgba(74, 107, 122, 0.18);
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 420ms ease;
+}
+
+.hero-gallery__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-gallery__photo--main {
+  z-index: 3;
+  top: 1.4rem;
+  left: 8.2rem;
+  width: 12.6rem;
+  height: 19.4rem;
+  transform: rotate(2deg);
+}
+
+.hero-gallery__photo--main img {
+  object-position: 50% 42%;
+}
+
+.hero-gallery__photo--art {
+  z-index: 2;
+  top: 5.2rem;
+  left: 0.35rem;
+  width: 10.6rem;
+  height: 15rem;
+  transform: rotate(-6deg);
+}
+
+.hero-gallery__photo--art img {
+  object-position: 50% 66%;
+}
+
+.hero-gallery__photo--graduation {
+  z-index: 2;
+  top: 5.1rem;
+  right: 0.25rem;
+  width: 10.25rem;
+  height: 14.8rem;
+  transform: rotate(7deg);
+}
+
+.hero-gallery__photo--graduation img {
+  object-position: 56% 43%;
+}
+
+.hero-gallery__photo--accent {
+  z-index: 4;
+  top: 0.25rem;
+  right: 2.2rem;
+  width: 8.3rem;
+  height: 6.25rem;
+  transform: rotate(3deg);
+}
+
+.hero-gallery__photo--accent img {
+  object-position: 50% 40%;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-gallery:hover .hero-gallery__photo--main {
+    transform: translateY(-0.35rem) rotate(1deg);
+    box-shadow: 0 24px 52px rgba(74, 107, 122, 0.22);
+  }
+
+  .hero-gallery:hover .hero-gallery__photo--art {
+    transform: translate(-0.35rem, 0.15rem) rotate(-7deg);
+  }
+
+  .hero-gallery:hover .hero-gallery__photo--graduation {
+    transform: translate(0.35rem, 0.15rem) rotate(8deg);
+  }
+
+  .hero-gallery:hover .hero-gallery__photo--accent {
+    transform: translate(0.15rem, -0.25rem) rotate(4deg);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  section[data-section="hero"] {
+    padding-top: 6.5rem;
+    padding-bottom: 4rem;
+  }
+
+  section[data-section="hero"] > .max-w-6xl {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 2rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+
+  section[data-section="hero"] .max-w-xl {
+    max-width: 42rem;
+  }
+
+  .hero-gallery {
+    margin: 0 auto;
+    flex-basis: 22rem;
+  }
+}
+
 .motion-child {
   will-change: opacity, transform, filter;
 }
@@ -250,17 +371,44 @@ footer.scroll-section {
     min-height: 2.85rem;
   }
 
-  section[data-section="hero"] .w-56.h-56 {
-    width: 7.55rem;
-    height: 7.55rem;
-    margin-left: auto;
-    margin-right: 0.55rem;
-    border-width: 3px;
+  .hero-gallery {
+    width: min(100%, 21.5rem);
+    height: 12.4rem;
+    margin: 0 0 0 auto;
+    flex-basis: 12.4rem;
   }
 
-  section[data-section="hero"] .w-44.h-44 {
-    width: 5.95rem;
-    height: 5.95rem;
+  .hero-gallery__photo {
+    border-width: 4px;
+    box-shadow: 0 12px 26px rgba(74, 107, 122, 0.16);
+  }
+
+  .hero-gallery__photo--main {
+    top: 0.45rem;
+    left: 7.1rem;
+    width: 7rem;
+    height: 11.2rem;
+  }
+
+  .hero-gallery__photo--art {
+    top: 2.75rem;
+    left: 0.9rem;
+    width: 6.65rem;
+    height: 8.5rem;
+  }
+
+  .hero-gallery__photo--graduation {
+    top: 2.6rem;
+    right: 0.4rem;
+    width: 6.45rem;
+    height: 8.6rem;
+  }
+
+  .hero-gallery__photo--accent {
+    top: 0;
+    right: 1.55rem;
+    width: 5.4rem;
+    height: 3.9rem;
   }
 
   section[data-section="hero"] .absolute.top-24.left-16 {
@@ -438,12 +586,20 @@ footer.scroll-section {
         <a href="#contact" class="px-6 py-3 rounded-full border border-mist/40 text-deep text-sm font-[DM_Sans] font-medium hover:bg-mist/10 transition-colors">Let's Connect</a>
       </div>
     </div>
-    <!-- Avatar -->
-    <div class="w-56 h-56 rounded-full bg-gradient-to-br from-mist/40 to-lotus/30 border-4 border-white shadow-xl flex items-center justify-center relative flex-shrink-0">
-      <div class="w-44 h-44 rounded-full overflow-hidden">
-        <img src="assets/profile.jpg" alt="Sally Ren" class="w-full h-full object-cover object-center" />
-      </div>
-      <div class="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-lotus/50"></div>
+    <!-- Layered photo gallery -->
+    <div class="hero-gallery" aria-label="Sally Ren 个人照片集">
+      <figure class="hero-gallery__photo hero-gallery__photo--main">
+        <img src="assets/hero-seaside.jpg" alt="Sally 在海边的旅行留影" fetchpriority="high" />
+      </figure>
+      <figure class="hero-gallery__photo hero-gallery__photo--art">
+        <img src="assets/hero-art-space.jpg" alt="Sally 在艺术空间参观" />
+      </figure>
+      <figure class="hero-gallery__photo hero-gallery__photo--graduation">
+        <img src="assets/hero-graduation.jpg" alt="Sally 的北京大学毕业留影" />
+      </figure>
+      <figure class="hero-gallery__photo hero-gallery__photo--accent">
+        <img src="assets/hero-red-wall.jpg" alt="Sally 在暖阳下的生活留影" />
+      </figure>
     </div>
   </div>
 </section>
@@ -592,7 +748,7 @@ footer.scroll-section {
           </div>
           <p class="text-sm text-mist font-[DM_Sans] font-medium mb-3">战略投资实习生</p>
           <div class="experience-copy text-sm text-subtle font-[DM_Sans] font-normal leading-relaxed">
-            <p>参与 AI 应用与硬科技方向的行业研究和项目筛选，围绕产品、技术、商业模式与团队等维度开展分析，为投资判断提供支持。</p>
+            <p>参与 AI 应用与硬科技行业研究及项目筛选，为投资判断提供支持。</p>
           </div>
         </div>
       </div>
@@ -607,7 +763,7 @@ footer.scroll-section {
           </div>
           <p class="text-sm text-lotus font-[DM_Sans] font-medium mb-3">投研实习生</p>
           <div class="experience-copy text-sm text-subtle font-[DM_Sans] font-normal leading-relaxed">
-            <p>参与机器人及相关产业链公司研究，结合行业趋势、公司基本面与财务数据开展竞争格局分析、盈利预测与估值研究。</p>
+            <p>参与机器人产业链研究，开展竞争格局、盈利预测与估值分析。</p>
           </div>
         </div>
       </div>
@@ -781,7 +937,7 @@ footer.scroll-section {
   (() => {
     const sections = Array.from(document.querySelectorAll(".scroll-section"));
     const revealSelectors = {
-      hero: [".max-w-xl > *", ".w-56.h-56"],
+      hero: [".max-w-xl > *", ".hero-gallery"],
       about: [":scope > div > .flex-1"],
       experience: [":scope h2", ":scope .relative.pl-16"],
       projects: [":scope h2", ":scope > div > p", ":scope .flex.items-center.gap-3.mb-8", ":scope .grid > a"],
