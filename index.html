@@ -159,11 +159,18 @@ footer.scroll-section {
   position: absolute;
   overflow: hidden;
   margin: 0;
+  padding: 0;
   border: 6px solid rgba(255, 255, 255, 0.96);
   border-radius: 3px;
   background: #ffffff;
   box-shadow: 0 20px 44px rgba(74, 107, 122, 0.18);
-  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 420ms ease;
+  cursor: pointer;
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 420ms ease, outline-color 180ms ease;
+}
+
+.hero-gallery__photo:focus-visible {
+  outline: 3px solid #4A6B7A;
+  outline-offset: 4px;
 }
 
 .hero-gallery__photo img {
@@ -224,6 +231,91 @@ footer.scroll-section {
   object-position: 50% 40%;
 }
 
+.photo-lightbox[hidden] {
+  display: none;
+}
+
+body.photo-lightbox-open {
+  overflow: hidden;
+}
+
+.photo-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: rgba(251, 248, 243, 0.96);
+  backdrop-filter: blur(14px);
+}
+
+.photo-lightbox__dialog {
+  width: fit-content;
+  max-width: calc(100% - 8rem);
+  max-height: calc(100vh - 3rem);
+}
+
+.photo-lightbox__media {
+  position: static;
+  display: grid;
+  min-height: 0;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, 0.58);
+  box-shadow: 0 20px 52px rgba(74, 107, 122, 0.14);
+}
+
+.photo-lightbox__image {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: min(82vh, 52rem);
+  object-fit: contain;
+}
+
+.photo-lightbox__control {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  border: 1px solid rgba(74, 107, 122, 0.18);
+  border-radius: 999px;
+  color: #4A6B7A;
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 4px 14px rgba(74, 107, 122, 0.12);
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.photo-lightbox__control:hover {
+  background: rgba(245, 240, 232, 0.98);
+}
+
+.photo-lightbox__control:focus-visible {
+  outline: 3px solid #4A6B7A;
+  outline-offset: 3px;
+}
+
+.photo-lightbox__close {
+  top: clamp(1rem, 4vw, 3rem);
+  right: clamp(1rem, 4vw, 3rem);
+}
+
+.photo-lightbox__previous {
+  top: 50%;
+  left: clamp(1rem, 4vw, 3rem);
+  transform: translateY(-50%);
+}
+
+.photo-lightbox__next {
+  top: 50%;
+  right: clamp(1rem, 4vw, 3rem);
+  transform: translateY(-50%);
+}
+
 @media (hover: hover) and (pointer: fine) {
   .hero-gallery:hover .hero-gallery__photo--main {
     transform: translateY(-0.35rem) rotate(1deg);
@@ -240,6 +332,39 @@ footer.scroll-section {
 
   .hero-gallery:hover .hero-gallery__photo--accent {
     transform: translate(0.15rem, -0.25rem) rotate(4deg);
+  }
+}
+
+@media (max-width: 640px) {
+  .photo-lightbox {
+    padding: 0.75rem;
+  }
+
+  .photo-lightbox__dialog {
+    max-width: calc(100% - 5rem);
+    max-height: calc(100vh - 1.5rem);
+  }
+
+  .photo-lightbox__image {
+    max-height: 80vh;
+  }
+
+  .photo-lightbox__control {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .photo-lightbox__close {
+    top: 0.75rem;
+    right: 0.75rem;
+  }
+
+  .photo-lightbox__previous {
+    left: 0.75rem;
+  }
+
+  .photo-lightbox__next {
+    right: 0.75rem;
   }
 }
 
@@ -588,21 +713,38 @@ footer.scroll-section {
     </div>
     <!-- Layered photo gallery -->
     <div class="hero-gallery" aria-label="Sally Ren 个人照片集">
-      <figure class="hero-gallery__photo hero-gallery__photo--main">
+      <button type="button" class="hero-gallery__photo hero-gallery__photo--main" data-preview-index="0" aria-label="预览 Sally 在海边的旅行留影">
         <img src="assets/hero-seaside.jpg" alt="Sally 在海边的旅行留影" fetchpriority="high" />
-      </figure>
-      <figure class="hero-gallery__photo hero-gallery__photo--art">
+      </button>
+      <button type="button" class="hero-gallery__photo hero-gallery__photo--art" data-preview-index="1" aria-label="预览 Sally 在艺术空间参观">
         <img src="assets/hero-art-space.jpg" alt="Sally 在艺术空间参观" />
-      </figure>
-      <figure class="hero-gallery__photo hero-gallery__photo--graduation">
+      </button>
+      <button type="button" class="hero-gallery__photo hero-gallery__photo--graduation" data-preview-index="2" aria-label="预览 Sally 的北京大学毕业留影">
         <img src="assets/hero-graduation.jpg" alt="Sally 的北京大学毕业留影" />
-      </figure>
-      <figure class="hero-gallery__photo hero-gallery__photo--accent">
+      </button>
+      <button type="button" class="hero-gallery__photo hero-gallery__photo--accent" data-preview-index="3" aria-label="预览 Sally 在暖阳下的生活留影">
         <img src="assets/hero-red-wall.jpg" alt="Sally 在暖阳下的生活留影" />
-      </figure>
+      </button>
     </div>
   </div>
 </section>
+
+<div id="photo-lightbox" class="photo-lightbox" hidden aria-hidden="true">
+  <div class="photo-lightbox__dialog" role="dialog" aria-modal="true" aria-label="首页照片预览">
+    <div class="photo-lightbox__media">
+      <img id="photo-lightbox-image" class="photo-lightbox__image" src="" alt="" />
+      <button id="photo-lightbox-close" type="button" class="photo-lightbox__control photo-lightbox__close" aria-label="关闭图片预览">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      <button id="photo-lightbox-previous" type="button" class="photo-lightbox__control photo-lightbox__previous" aria-label="查看上一张图片">
+        <i data-lucide="chevron-left" class="w-6 h-6"></i>
+      </button>
+      <button id="photo-lightbox-next" type="button" class="photo-lightbox__control photo-lightbox__next" aria-label="查看下一张图片">
+        <i data-lucide="chevron-right" class="w-6 h-6"></i>
+      </button>
+    </div>
+  </div>
+</div>
 
 <!-- About Me -->
 <section id="about" data-section="about" class="scroll-section py-32 bg-white">
@@ -777,59 +919,8 @@ footer.scroll-section {
     <h2 class="font-[Playfair_Display] text-3xl font-semibold text-deep mb-4 text-center">Projects & Research</h2>
     <p class="text-center font-[DM_Sans] text-subtle text-sm mb-16">Selected work · 项目实践与评测集发表</p>
 
-    <!-- Projects -->
-    <div class="mb-20">
-      <div class="flex items-center gap-3 mb-8">
-        <div class="w-9 h-9 rounded-full bg-deep/10 flex items-center justify-center">
-          <i data-lucide="folder" class="w-4 h-4 text-deep"></i>
-        </div>
-        <h3 class="font-[DM_Sans] text-lg font-semibold text-deep">Projects · 项目实践</h3>
-        <div class="flex-1 h-[1px] bg-deep/10"></div>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <!-- Markdown Preview Extension -->
-        <a href="https://github.com/Arianator-SalD/dingtalk-md-preview-extension" target="_blank" rel="noopener noreferrer" class="group rounded-xl overflow-hidden bg-white border border-mist/15 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 block">
-          <div class="h-40 overflow-hidden bg-mist/10">
-            <img src="assets/markdown-preview-project.png" alt="Markdown Selection Preview 扩展界面" class="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-500" />
-          </div>
-          <div class="p-6">
-            <div class="flex items-start justify-between gap-2 mb-2">
-              <h3 class="font-[DM_Sans] font-semibold text-deep text-base leading-snug">Markdown Selection Preview</h3>
-              <i data-lucide="external-link" class="w-4 h-4 text-mist/50 flex-shrink-0 mt-0.5 group-hover:text-mist transition-colors"></i>
-            </div>
-            <p class="text-sm text-subtle font-[DM_Sans] mb-4 leading-relaxed">为钉钉、飞书表格和普通网页提供 Chrome 右侧栏 Markdown 预览，支持直接读取表格单元格内容（不占用系统剪贴板）、剪贴板兜底、内容搜索与源文本查看，所有数据均在本地处理。</p>
-            <div class="flex gap-2 flex-wrap">
-              <span class="text-xs px-3 py-1 rounded-full bg-mist/15 text-deep/70">Chrome Extension</span>
-              <span class="text-xs px-3 py-1 rounded-full bg-lotus/15 text-deep/70">Feishu Sheets</span>
-              <span class="text-xs px-3 py-1 rounded-full bg-lotus/15 text-deep/70">Markdown</span>
-              <span class="text-xs px-3 py-1 rounded-full bg-cream text-deep/70">Local-first</span>
-            </div>
-          </div>
-        </a>
-
-        <!-- Offer Decision Tool -->
-        <a href="https://offerdecisiontool.vercel.app" target="_blank" rel="noopener noreferrer" class="group rounded-xl overflow-hidden bg-white border border-lotus/15 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 block">
-          <div class="h-40 overflow-hidden bg-lotus/5">
-            <img src="assets/offer-decision-tool.png" alt="Offer Decision Tool 多 offer 打分与实时推荐界面" class="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-500" />
-          </div>
-          <div class="p-6">
-            <div class="flex items-start justify-between gap-2 mb-2">
-              <h3 class="font-[DM_Sans] font-semibold text-deep text-base leading-snug">Offer Decision Tool · 职业选择档案</h3>
-              <i data-lucide="external-link" class="w-4 h-4 text-lotus/50 flex-shrink-0 mt-0.5 group-hover:text-lotus transition-colors"></i>
-            </div>
-            <p class="text-sm text-subtle font-[DM_Sans] mb-4 leading-relaxed">将多个 offer 的关键信息、维度打分与个人权重放在同一界面中，实时生成推荐排序和雷达图，并支持档案保存、云端同步与 AI 决策总结。</p>
-            <div class="flex gap-2 flex-wrap">
-              <span class="text-xs px-3 py-1 rounded-full bg-lotus/15 text-deep/70">决策工具</span>
-              <span class="text-xs px-3 py-1 rounded-full bg-mist/15 text-deep/70">Supabase</span>
-              <span class="text-xs px-3 py-1 rounded-full bg-cream text-deep/70">AI Summary</span>
-            </div>
-          </div>
-        </a>
-      </div>
-    </div>
-
     <!-- Research -->
-    <div>
+    <div class="mb-20">
       <div class="flex items-center gap-3 mb-8">
         <div class="w-9 h-9 rounded-full bg-lotus/15 flex items-center justify-center">
           <i data-lucide="book-open" class="w-4 h-4 text-lotus"></i>
@@ -882,6 +973,58 @@ footer.scroll-section {
 
       </div>
     </div>
+
+    <!-- Projects -->
+    <div>
+      <div class="flex items-center gap-3 mb-8">
+        <div class="w-9 h-9 rounded-full bg-deep/10 flex items-center justify-center">
+          <i data-lucide="folder" class="w-4 h-4 text-deep"></i>
+        </div>
+        <h3 class="font-[DM_Sans] text-lg font-semibold text-deep">Projects · 项目实践</h3>
+        <div class="flex-1 h-[1px] bg-deep/10"></div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Markdown Preview Extension -->
+        <a href="https://github.com/Arianator-SalD/dingtalk-md-preview-extension" target="_blank" rel="noopener noreferrer" class="group rounded-xl overflow-hidden bg-white border border-mist/15 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 block">
+          <div class="h-40 overflow-hidden bg-mist/10">
+            <img src="assets/markdown-preview-project.png" alt="Markdown Selection Preview 扩展界面" class="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-500" />
+          </div>
+          <div class="p-6">
+            <div class="flex items-start justify-between gap-2 mb-2">
+              <h3 class="font-[DM_Sans] font-semibold text-deep text-base leading-snug">Markdown Selection Preview</h3>
+              <i data-lucide="external-link" class="w-4 h-4 text-mist/50 flex-shrink-0 mt-0.5 group-hover:text-mist transition-colors"></i>
+            </div>
+            <p class="text-sm text-subtle font-[DM_Sans] mb-4 leading-relaxed">为钉钉、飞书表格和普通网页提供 Chrome 右侧栏 Markdown 预览，支持直接读取表格单元格内容（不占用系统剪贴板）、剪贴板兜底、内容搜索与源文本查看，所有数据均在本地处理。</p>
+            <div class="flex gap-2 flex-wrap">
+              <span class="text-xs px-3 py-1 rounded-full bg-mist/15 text-deep/70">Chrome Extension</span>
+              <span class="text-xs px-3 py-1 rounded-full bg-lotus/15 text-deep/70">Feishu Sheets</span>
+              <span class="text-xs px-3 py-1 rounded-full bg-lotus/15 text-deep/70">Markdown</span>
+              <span class="text-xs px-3 py-1 rounded-full bg-cream text-deep/70">Local-first</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Offer Decision Tool -->
+        <a href="https://offerdecisiontool.vercel.app" target="_blank" rel="noopener noreferrer" class="group rounded-xl overflow-hidden bg-white border border-lotus/15 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 block">
+          <div class="h-40 overflow-hidden bg-lotus/5">
+            <img src="assets/offer-decision-tool.png" alt="Offer Decision Tool 多 offer 打分与实时推荐界面" class="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-500" />
+          </div>
+          <div class="p-6">
+            <div class="flex items-start justify-between gap-2 mb-2">
+              <h3 class="font-[DM_Sans] font-semibold text-deep text-base leading-snug">Offer Decision Tool · 职业选择档案</h3>
+              <i data-lucide="external-link" class="w-4 h-4 text-lotus/50 flex-shrink-0 mt-0.5 group-hover:text-lotus transition-colors"></i>
+            </div>
+            <p class="text-sm text-subtle font-[DM_Sans] mb-4 leading-relaxed">将多个 offer 的关键信息、维度打分与个人权重放在同一界面中，实时生成推荐排序和雷达图，并支持档案保存、云端同步与 AI 决策总结。</p>
+            <div class="flex gap-2 flex-wrap">
+              <span class="text-xs px-3 py-1 rounded-full bg-lotus/15 text-deep/70">决策工具</span>
+              <span class="text-xs px-3 py-1 rounded-full bg-mist/15 text-deep/70">Supabase</span>
+              <span class="text-xs px-3 py-1 rounded-full bg-cream text-deep/70">AI Summary</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -901,15 +1044,6 @@ footer.scroll-section {
             <i data-lucide="arrow-up-right" class="w-4 h-4 text-deep/60 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"></i>
           </span>
         </a>
-        <a href="https://github.com/Arianator-SalD" target="_blank" rel="noopener noreferrer" aria-label="GitHub · Arianator-SalD" class="group flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-lotus/20 flex items-center justify-center group-hover:bg-lotus/30 transition-colors">
-            <i class="fa-brands fa-github text-deep/80 text-lg"></i>
-          </div>
-          <span class="flex items-center gap-1">
-            <span class="font-[DM_Sans] text-text text-sm group-hover:text-deep transition-colors">GitHub · Arianator-SalD</span>
-            <i data-lucide="arrow-up-right" class="w-4 h-4 text-deep/60 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"></i>
-          </span>
-        </a>
       </div>
       <div class="flex flex-wrap justify-center gap-x-12 gap-y-6">
         <div class="flex items-center gap-3">
@@ -926,7 +1060,7 @@ footer.scroll-section {
 <!-- Footer -->
 <footer data-section="footer" class="scroll-section py-8 bg-white border-t border-mist/15">
   <div class="max-w-6xl mx-auto px-12 text-center">
-    <p class="font-[DM_Sans] text-xs text-subtle/60">© 2025 Sally Ren · Built with curiosity and care</p>
+    <p class="font-[DM_Sans] text-xs text-subtle/60">© 2026 Sally Ren · Built with curiosity and care</p>
   </div>
 </footer>
 
@@ -935,6 +1069,63 @@ footer.scroll-section {
   if (window.lucide) lucide.createIcons();
 
   (() => {
+    const galleryPhotos = Array.from(document.querySelectorAll(".hero-gallery__photo"));
+    const lightbox = document.querySelector("#photo-lightbox");
+    const lightboxImage = document.querySelector("#photo-lightbox-image");
+    const closeLightboxButton = document.querySelector("#photo-lightbox-close");
+    const previousLightboxButton = document.querySelector("#photo-lightbox-previous");
+    const nextLightboxButton = document.querySelector("#photo-lightbox-next");
+    let activePhotoIndex = 0;
+    let lightboxTrigger = null;
+
+    function setActivePhoto(index) {
+      activePhotoIndex = (index + galleryPhotos.length) % galleryPhotos.length;
+      const image = galleryPhotos[activePhotoIndex].querySelector("img");
+      lightboxImage.src = image.currentSrc || image.src;
+      lightboxImage.alt = image.alt;
+    }
+
+    function openLightbox(index, trigger) {
+      lightboxTrigger = trigger;
+      setActivePhoto(index);
+      lightbox.hidden = false;
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.classList.add("photo-lightbox-open");
+      requestAnimationFrame(() => closeLightboxButton.focus());
+    }
+
+    function closeLightbox() {
+      if (lightbox.hidden) return;
+
+      lightbox.hidden = true;
+      lightbox.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("photo-lightbox-open");
+      lightboxTrigger?.blur();
+      lightboxTrigger = null;
+    }
+
+    function moveLightbox(step) {
+      setActivePhoto(activePhotoIndex + step);
+    }
+
+    galleryPhotos.forEach((photo, index) => {
+      photo.addEventListener("click", () => openLightbox(index, photo));
+    });
+
+    closeLightboxButton.addEventListener("click", closeLightbox);
+    previousLightboxButton.addEventListener("click", () => moveLightbox(-1));
+    nextLightboxButton.addEventListener("click", () => moveLightbox(1));
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox) closeLightbox();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (lightbox.hidden) return;
+
+      if (event.key === "Escape") closeLightbox();
+      if (event.key === "ArrowLeft") moveLightbox(-1);
+      if (event.key === "ArrowRight") moveLightbox(1);
+    });
+
     const sections = Array.from(document.querySelectorAll(".scroll-section"));
     const revealSelectors = {
       hero: [".max-w-xl > *", ".hero-gallery"],
@@ -957,6 +1148,9 @@ footer.scroll-section {
         item.style.setProperty("--motion-delay", `${Math.min(index, 8) * 70}ms`);
       });
     });
+
+    // The footer is shorter than the reveal observer's bottom exclusion zone.
+    document.querySelector('footer[data-section="footer"]')?.classList.add("is-visible");
 
     function markInitialSections() {
       const lowerBand = window.innerHeight * 0.88;
