@@ -30,7 +30,8 @@ This is a single-page portfolio that presents Sally's background, internship exp
 
 ```text
 .
-├── index.html
+├── sallyren.html
+├── vercel.json
 ├── assets/
 │   ├── profile.jpg
 │   ├── offer-decision-tool.png
@@ -50,7 +51,7 @@ python3 -m http.server 5175
 Then open:
 
 ```text
-http://127.0.0.1:5175
+http://127.0.0.1:5175/sallyren.html
 ```
 
 ## Deployment
